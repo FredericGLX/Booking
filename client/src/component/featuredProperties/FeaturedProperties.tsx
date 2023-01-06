@@ -1,47 +1,35 @@
+import useFetch from '../../hooks/useFetch';
 import './featuredProperties.scss';
+import { HotelModel } from '../../types/types';
 
 export default function FeaturedProperties(): JSX.Element {
+  const { data, loading, error } = useFetch('/hotels/?featured=true&limit=4');
+
   return (
     <div className="fp">
-      <div className="fpItem">
-        <img
-          src="https://cf.bstatic.com/xdata/images/hotel/square600/187855604.webp?k=bbb45aa5b540c7608ea3af52d92b95a215df9af831dd3ae0e4c4cce501e28b1b&o=&s=1"
-          alt="house"
-          className="fpImg"
-        />
-        <span className="fpName">Tiny House</span>
-        <span className="fpCity">Germany, Berlin</span>
-        <span className="fpPrice">Starting from $250</span>
-        <div className="fpRating">
-          <button>8.9</button> <span>Excellent</span>
-        </div>
-      </div>
-      <div className="fpItem">
-        <img
-          src="https://cf.bstatic.com/xdata/images/hotel/square600/187855604.webp?k=bbb45aa5b540c7608ea3af52d92b95a215df9af831dd3ae0e4c4cce501e28b1b&o=&s=1"
-          alt="house"
-          className="fpImg"
-        />
-        <span className="fpName">Tiny House</span>
-        <span className="fpCity">Germany, Berlin</span>
-        <span className="fpPrice">Starting from $250</span>
-        <div className="fpRating">
-          <button>8.9</button> <span>Excellent</span>
-        </div>
-      </div>
-      <div className="fpItem">
-        <img
-          src="https://cf.bstatic.com/xdata/images/hotel/square600/187855604.webp?k=bbb45aa5b540c7608ea3af52d92b95a215df9af831dd3ae0e4c4cce501e28b1b&o=&s=1"
-          alt="house"
-          className="fpImg"
-        />
-        <span className="fpName">Tiny House</span>
-        <span className="fpCity">Germany, Berlin</span>
-        <span className="fpPrice">Starting from $250</span>
-        <div className="fpRating">
-          <button>8.9</button> <span>Excellent</span>
-        </div>
-      </div>
+      {loading ? (
+        'Loading'
+      ) : (
+        <>
+          {data.map((item: HotelModel) => {
+            return (
+              <div className="fpItem" key={item._id}>
+                <img src={item.photos[0]} alt="house" className="fpImg" />
+                <span className="fpName">{item.name}</span>
+                <span className="fpCity">{item.city}</span>
+                <span className="fpPrice">
+                  Starting from ${item.cheapestPrice}
+                </span>
+                {item.rating && (
+                  <div className="fpRating">
+                    <button>{item.rating}</button> <span>Excellent</span>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </>
+      )}
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import Hotel from '../models/Hotel';
 import { NextFunction, Request, Response } from 'express';
+import { pick, omit } from 'lodash';
 
 export const createHotel = async (
   req: Request,
@@ -66,8 +67,21 @@ export const getHotels = async (
   res: Response,
   next: NextFunction
 ) => {
+  // try {
+  //   const { min, max, limit, ...others } = req.query;
+  //   const hotels = await Hotel.find({
+  //     ...others,
+  //     cheapestPrice: { $gt: min || 1, $lt: max || 999 },
+  //   }).limit(+limit);
+  //   res.status(200).json(hotels);
+  // } catch (err) {
+  //   next(err);
+  // }
   try {
-    const hotels = await Hotel.find();
+    const { limit, ...others } = req.query;
+    const hotels = await Hotel.find({
+      ...others,
+    }).limit(+limit);
     res.status(200).json(hotels);
   } catch (err) {
     next(err);
@@ -87,6 +101,30 @@ export const countByCity = async (
       })
     );
     res.status(200).json(list);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const countByType = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const hotelCount = await Hotel.countDocuments({ type: 'hotel' });
+    const apartmentCount = await Hotel.countDocuments({ type: 'apartment' });
+    const resortCount = await Hotel.countDocuments({ type: 'resort' });
+    const villaCount = await Hotel.countDocuments({ type: 'villa' });
+    const cabinCount = await Hotel.countDocuments({ type: 'cabin' });
+
+    res.status(200).json([
+      { type: 'hotel', count: hotelCount },
+      { type: 'apartment', count: apartmentCount },
+      { type: 'resort', count: resortCount },
+      { type: 'villa', count: villaCount },
+      { type: 'cabin', count: cabinCount },
+    ]);
   } catch (err) {
     next(err);
   }

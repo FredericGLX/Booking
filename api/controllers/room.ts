@@ -82,8 +82,6 @@ export const getRooms = async (
   res: Response,
   next: NextFunction
 ) => {
-  // const failed = true;
-  // if (failed) return next(createError(401, 'You are not authentificated'));
   try {
     const rooms = await Room.find();
     res.status(200).json(rooms);

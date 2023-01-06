@@ -1,7 +1,7 @@
-POST http://localhost:8800/api/auth/login HTTP/1.1
+GET http://localhost:8800/api/hotels?featured=true HTTP/1.1
 content-type: application/json
 
-{
-  "username": "JeSuisUnTest",
-  "password": "jean"
-}
+# {
+#   "username": "JeSuisUnTest",
+#   "password": "jean"
+# }
