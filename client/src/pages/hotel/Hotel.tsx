@@ -20,7 +20,7 @@ function Hotel(): JSX.Element {
   console.log(id);
   const [slideNumber, setSlideNumber] = useState<number>(0);
   const [open, setOpen] = useState<boolean>(false);
-  const { data, loading, error, reFetch } = useFetch(`/hotels/${id}`);
+  const { data, loading, error, reFetch } = useFetch(`/hotels/find/${id}`);
 
   const handleOpen = (i: number) => {
     setSlideNumber(i);
