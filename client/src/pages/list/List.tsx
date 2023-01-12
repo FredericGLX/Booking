@@ -7,6 +7,8 @@ import { format } from 'date-fns';
 import { DateRange } from 'react-date-range';
 import { bookingOptions } from '../../interfaces/interfaces';
 import SearchItem from '../../component/searchItem/SearchItem';
+import useFetch from '../../hooks/useFetch';
+import { HotelModel } from '../../types/types';
 
 function List(): JSX.Element {
   const location = useLocation();
@@ -18,8 +20,16 @@ function List(): JSX.Element {
   const [options, setOptions] = useState<bookingOptions>(
     location.state.options
   );
+  const [min, setMin] = useState<any>(undefined);
+  const [max, setMax] = useState<any>(undefined);
 
-  console.log(options);
+  const { data, loading, error, reFetch } = useFetch(
+    `/hotels?city=${destination}&min=${min || 0}&max=${max || 999}`
+  );
+
+  const handleClick = () => {
+    reFetch();
+  };
 
   return (
     <div>
@@ -54,13 +64,21 @@ function List(): JSX.Element {
                   <span className="lsOptionText">
                     Min Price <small>per night</small>
                   </span>
-                  <input type="number" className="lsOptionInput" />
+                  <input
+                    type="number"
+                    className="lsOptionInput"
+                    onChange={(e) => setMin(e.target.value)}
+                  />
                 </div>
                 <div className="lsOptionItem">
                   <span className="lsOptionText">
                     Max Price <small>per night</small>
                   </span>
-                  <input type="number" className="lsOptionInput" />
+                  <input
+                    type="number"
+                    className="lsOptionInput"
+                    onChange={(e) => setMax(e.target.value)}
+                  />
                 </div>
                 <div className="lsOptionItem">
                   <span className="lsOptionText">Adult</span>
@@ -91,17 +109,18 @@ function List(): JSX.Element {
                 </div>
               </div>
             </div>
-            <button>Search</button>
+            <button onClick={handleClick}>Search</button>
           </div>
           <div className="listResult">
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
+            {loading ? (
+              'Loading'
+            ) : (
+              <>
+                {data.map((item: HotelModel) => {
+                  return <SearchItem item={item} key={item._id} />;
+                })}
+              </>
+            )}
           </div>
         </div>
       </div>
