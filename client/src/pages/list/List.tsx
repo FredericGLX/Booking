@@ -15,7 +15,7 @@ function List(): JSX.Element {
   const [destination, setDestination] = useState<string>(
     location.state.destination
   );
-  const [date, setDate] = useState<any>(location.state.date);
+  const [dates, setDates] = useState<any>(location.state.dates);
   const [openDate, setOpenDate] = useState<boolean>(false);
   const [options, setOptions] = useState<bookingOptions>(
     location.state.options
@@ -46,14 +46,14 @@ function List(): JSX.Element {
             <div className="lsItem">
               <label>Check-in dates</label>
               <span onClick={() => setOpenDate(!openDate)}>{`${format(
-                date[0].startDate,
+                dates[0].startDate,
                 'MM/dd/yyyy'
-              )} to ${format(date[0].endDate, 'MM/dd/yyyy')}`}</span>
+              )} to ${format(dates[0].endDate, 'MM/dd/yyyy')}`}</span>
               {openDate && (
                 <DateRange
-                  onChange={(item) => setDate([item.selection])}
+                  onChange={(item) => setDates([item.selection])}
                   minDate={new Date()}
-                  ranges={date}
+                  ranges={dates}
                 />
               )}
             </div>

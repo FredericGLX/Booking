@@ -10,9 +10,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import MailList from '../../component/mailList/MailList';
 import Footer from '../../component/footer/Footer';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import { useLocation } from 'react-router-dom';
+import { SearchContext } from '../../context/SearchContext';
+import { dayDifference } from '../../helper/helper';
 
 function Hotel(): JSX.Element {
   const location = useLocation();
@@ -21,6 +23,14 @@ function Hotel(): JSX.Element {
   const [slideNumber, setSlideNumber] = useState<number>(0);
   const [open, setOpen] = useState<boolean>(false);
   const { data, loading, error, reFetch } = useFetch(`/hotels/find/${id}`);
+
+  const { state } = useContext(SearchContext);
+  const dates = state?.dates;
+  const options = state?.options;
+
+  console.log(dates[0]);
+
+  const days = dayDifference(dates[0].endDate, dates[0].startDate);
 
   const handleOpen = (i: number) => {
     setSlideNumber(i);
@@ -110,13 +120,14 @@ function Hotel(): JSX.Element {
                 <p className="hotelDesc">{data.desc}</p>
               </div>
               <div className="hotelDetailsPrice">
-                <h1>Perfect for a 2-night stay!</h1>
+                <h1>Perfect for a {days}-night stay!</h1>
                 <span>
                   Situated in the real heart of Auckland, this hotel has an
                   excellent location score of 9.4
                 </span>
                 <h3>
-                  <b>$945</b> (9 nights)
+                  <b>${days * data.cheapestPrice * options.room}</b> ({days}{' '}
+                  nights)
                 </h3>
                 <button>Reserve or book now</button>
               </div>
