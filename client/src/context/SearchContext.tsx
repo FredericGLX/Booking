@@ -1,7 +1,6 @@
 import { createContext, useReducer } from 'react';
 import { FC } from 'react';
-import { bookingOptions } from '../interfaces/interfaces';
-import { InitialState, MyAction, MyContext } from '../interfaces/context';
+import { InitialState, MyAction, MyContext } from '../interfaces/searchContext';
 
 export const SearchContext = createContext({} as MyContext);
 

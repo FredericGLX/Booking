@@ -16,6 +16,7 @@ import { format } from 'date-fns';
 import { bookingOptions, headerProps } from '../../interfaces/interfaces';
 import { useNavigate } from 'react-router-dom';
 import { SearchContext } from '../../context/SearchContext';
+import { AuthContext } from '../../context/AuthContext';
 
 function Header({ type }: headerProps): JSX.Element {
   const [destination, setDestination] = useState<string>('');
@@ -36,6 +37,8 @@ function Header({ type }: headerProps): JSX.Element {
   });
 
   const navigate = useNavigate();
+  const { state } = useContext(AuthContext);
+  const { user } = state;
 
   const handleOption = (name: keyof bookingOptions, operation: string) => {
     setOptions((prev) => {
@@ -88,7 +91,7 @@ function Header({ type }: headerProps): JSX.Element {
             <p className="headerDesc">
               Search low prices on hotels, homes and much more...
             </p>
-            <button className="headerBtn">Sign in / Register</button>
+            {!user && <button className="headerBtn">Sign in / Register</button>}
             <div className="headerSearch">
               <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faBed} className="headerIcon" />

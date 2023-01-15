@@ -28,8 +28,6 @@ function Hotel(): JSX.Element {
   const dates = state?.dates;
   const options = state?.options;
 
-  console.log(dates[0]);
-
   const days = dayDifference(dates[0].endDate, dates[0].startDate);
 
   const handleOpen = (i: number) => {
