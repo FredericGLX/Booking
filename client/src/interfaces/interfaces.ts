@@ -7,3 +7,18 @@ export interface bookingOptions {
 export interface headerProps {
   type: string;
 }
+
+export interface RoomNumber {
+  number: number;
+  unavailableDates: [Date];
+  _id: string;
+}
+
+export interface RoomModel {
+  title: string;
+  price: number;
+  maxPeople: number;
+  desc: string;
+  roomNumbers: [RoomNumber];
+  _id: string;
+}

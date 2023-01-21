@@ -12,17 +12,24 @@ import MailList from '../../component/mailList/MailList';
 import Footer from '../../component/footer/Footer';
 import { useContext, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { SearchContext } from '../../context/SearchContext';
 import { dayDifference } from '../../helper/helper';
+import { AuthContext } from '../../context/AuthContext';
+import Reserve from '../../component/reserve/Reserve';
 
 function Hotel(): JSX.Element {
   const location = useLocation();
   const id = location.pathname.split('/')[2];
-  console.log(id);
+
   const [slideNumber, setSlideNumber] = useState<number>(0);
   const [open, setOpen] = useState<boolean>(false);
-  const { data, loading, error, reFetch } = useFetch(`/hotels/find/${id}`);
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const { data, loading } = useFetch(`/hotels/find/${id}`);
+
+  const userContext = useContext(AuthContext);
+  const user = userContext.state.user;
+  const navigate = useNavigate();
 
   const { state } = useContext(SearchContext);
   const dates = state?.dates;
@@ -44,6 +51,14 @@ function Hotel(): JSX.Element {
       newSlideNumber = slideNumber === 5 ? 0 : slideNumber + 1;
     }
     setSlideNumber(newSlideNumber);
+  };
+
+  const handleClick = () => {
+    if (user) {
+      setOpenModal(true);
+    } else {
+      navigate('/login');
+    }
   };
 
   return (
@@ -127,7 +142,7 @@ function Hotel(): JSX.Element {
                   <b>${days * data.cheapestPrice * options.room}</b> ({days}{' '}
                   nights)
                 </h3>
-                <button>Reserve or book now</button>
+                <button onClick={handleClick}>Reserve or book now</button>
               </div>
             </div>
           </div>
@@ -135,6 +150,7 @@ function Hotel(): JSX.Element {
           <Footer />
         </div>
       )}
+      {openModal && <Reserve setOpen={setOpenModal} hotelId={id} />}
     </div>
   );
 }

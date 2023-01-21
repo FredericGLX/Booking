@@ -1,4 +1,5 @@
 import Hotel from '../models/Hotel';
+import Room from '../models/Room';
 import { NextFunction, Request, Response } from 'express';
 import { pick, omit } from 'lodash';
 
@@ -116,6 +117,24 @@ export const countByType = async (
       { type: 'villa', count: villaCount },
       { type: 'cabin', count: cabinCount },
     ]);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getHotelRooms = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const hotel = await Hotel.findById(req.params.id);
+    const list = await Promise.all(
+      hotel.rooms.map((room) => {
+        return Room.findById(room);
+      })
+    );
+    res.status(200).json(list);
   } catch (err) {
     next(err);
   }
