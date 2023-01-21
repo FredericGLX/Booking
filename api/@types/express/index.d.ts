@@ -1,5 +1,5 @@
 import { Express } from 'express';
-import { UserDocument } from '../../types/type';
+import { UserDocument } from '../../interfaces/interfaces';
 
 // Allows req.user with TypeScript
 declare global {

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { UserDocument } from '../types/type';
+import { UserDocument } from '../interfaces/interfaces';
 
 const UserSchema = new mongoose.Schema<UserDocument>(
   {
@@ -12,6 +12,21 @@ const UserSchema = new mongoose.Schema<UserDocument>(
       type: String,
       required: true,
       unique: true,
+    },
+    country: {
+      type: String,
+      required: true,
+    },
+    img: {
+      type: String,
+    },
+    city: {
+      type: String,
+      required: true,
+    },
+    phone: {
+      type: String,
+      required: true,
     },
     password: {
       type: String,

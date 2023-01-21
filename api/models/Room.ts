@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { RoomModel } from '../types/type';
+import { RoomModel } from '../interfaces/interfaces';
 
 const RoomSchema = new mongoose.Schema<RoomModel>({
   title: {

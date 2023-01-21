@@ -7,7 +7,7 @@ import hotelsRoute from './routes/hotels';
 import roomsRoute from './routes/rooms';
 import cors from 'cors';
 import { NextFunction, Request, Response } from 'express';
-import { CustomError } from './types/type';
+import { CustomError } from './interfaces/interfaces';
 import cookieParser from 'cookie-parser';
 
 const app = express();

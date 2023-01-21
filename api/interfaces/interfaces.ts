@@ -8,6 +8,10 @@ export interface CustomError extends Error {
 interface UserModel {
   username: string;
   email: string;
+  country: string;
+  img: string;
+  city: string;
+  phone: string | number;
   password: string;
   isAdmin: boolean;
 }

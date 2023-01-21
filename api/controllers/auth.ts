@@ -14,8 +14,7 @@ export const register = async (
     const hash = bcrypt.hashSync(req.body.password, salt);
 
     const newUser = new User({
-      username: req.body.username,
-      email: req.body.email,
+      ...req.body,
       password: hash,
     });
 
@@ -37,9 +36,7 @@ export const login = async (
 
     const isPasswordCorrect = await bcrypt.compare(
       req.body.password,
-      (
-        await user
-      ).password
+      user.password
     );
     if (!isPasswordCorrect)
       return next(createError(404, 'Wrong password or username!'));

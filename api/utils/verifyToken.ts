@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
 import { createError } from './error';
 import { Request, Response, NextFunction } from 'express';
-import { CustomError } from '../types/type';
-import { UserDocument } from '../types/type';
+import { CustomError } from '../interfaces/interfaces';
+import { UserDocument } from '../interfaces/interfaces';
 
 export const verifyToken = (
   req: Request,

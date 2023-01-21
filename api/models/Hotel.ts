@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { HotelModel } from '../types/type';
+import { HotelModel } from '../interfaces/interfaces';
 
 const HotelSchema = new mongoose.Schema<HotelModel>({
   name: {
