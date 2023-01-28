@@ -9,7 +9,7 @@ const SearchItem: FC<{ item: HotelModel }> = ({ item }) => {
       <img src={item.photos[0]} alt="hotel" className="siImg" />
       <div className="siDesc">
         <h1 className="siTitle">{item.name}</h1>
-        <span className="siDistance">{item.distance}e</span>
+        <span className="siDistance">{item.distance}</span>
         <span className="siTaxiOp">Free Airport Taxi</span>
         <span className="siSubtitle">
           Studio Apartment with Air conditioning
