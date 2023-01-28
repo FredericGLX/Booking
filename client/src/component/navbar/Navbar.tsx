@@ -7,6 +7,11 @@ function Navbar(): JSX.Element {
   const { state } = useContext(AuthContext);
   const { user } = state;
 
+  const logout = () => {
+    localStorage.removeItem('user');
+    window.location.reload();
+  };
+
   return (
     <div className="navbar">
       <div className="navContainer">
@@ -14,11 +19,19 @@ function Navbar(): JSX.Element {
           <span className="logo">Booking App</span>
         </Link>
         {user ? (
-          user.username
+          <>
+            <button className="navButton" onClick={logout}>
+              Logout
+            </button>
+          </>
         ) : (
           <div className="navItems">
-            <button className="navButton">Register</button>
-            <button className="navButton">Register</button>
+            <Link to={'/login'}>
+              <button className="navButton">Login</button>
+            </Link>
+            <Link to={'/login'}>
+              <button className="navButton">Register</button>
+            </Link>
           </div>
         )}
       </div>
