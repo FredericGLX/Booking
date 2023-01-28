@@ -5,3 +5,9 @@ export function dayDifference(date1: Date, date2: Date) {
   const diffDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
   return diffDays;
 }
+
+export function capitalizeFirstLetter(string: string) {
+  if (string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+}

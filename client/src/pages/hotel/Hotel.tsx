@@ -17,6 +17,7 @@ import { SearchContext } from '../../context/SearchContext';
 import { dayDifference } from '../../helper/helper';
 import { AuthContext } from '../../context/AuthContext';
 import Reserve from '../../component/reserve/Reserve';
+import { capitalizeFirstLetter } from '../../helper/helper';
 
 function Hotel(): JSX.Element {
   const location = useLocation();
@@ -129,13 +130,16 @@ function Hotel(): JSX.Element {
             </div>
             <div className="hotelDetails">
               <div className="hotelDetailsText">
-                <h1 className="hotelTitle">Stay in the heart of Auckland</h1>
+                <h1 className="hotelTitle">
+                  Stay in the heart of {capitalizeFirstLetter(data.city)}
+                </h1>
                 <p className="hotelDesc">{data.desc}</p>
               </div>
               <div className="hotelDetailsPrice">
                 <h1>Perfect for a {days}-night stay!</h1>
                 <span>
-                  Situated in the real heart of Auckland, this hotel has an
+                  Situated in the real heart of{' '}
+                  {capitalizeFirstLetter(data.city)}, this hotel has an
                   excellent location score of 9.4
                 </span>
                 <h3>
