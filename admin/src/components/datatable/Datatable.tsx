@@ -23,6 +23,7 @@ const Datatable: FC<{ columns: ColumnModel[] }> = ({ columns }) => {
       await axios.delete(`/${path}/${id}`);
       setList(data.filter((item: ListData) => item._id !== id));
     } catch (err) {}
+    window.location.reload();
   };
 
   function titleCase(string: string) {
