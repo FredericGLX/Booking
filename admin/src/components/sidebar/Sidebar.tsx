@@ -51,10 +51,6 @@ function Sidebar(): JSX.Element {
               <span>Rooms</span>
             </li>
           </Link>
-          <li>
-            <LocalShippingIcon className="icon" />
-            <span>Delivery</span>
-          </li>
           <p className="title">USEFUL</p>
           <li>
             <InsertChartIcon className="icon" />
@@ -65,10 +61,6 @@ function Sidebar(): JSX.Element {
             <span>Notifications</span>
           </li>
           <p className="title">SERVICE</p>
-          <li>
-            <SettingsSystemDaydreamOutlinedIcon className="icon" />
-            <span>System Health</span>
-          </li>
           <li>
             <PsychologyOutlinedIcon className="icon" />
             <span>Logs</span>
